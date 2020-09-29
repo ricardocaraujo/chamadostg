@@ -12,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import br.com.petrobras.tg.faletg.domain.enums.Situacao;
+import br.com.petrobras.tg.faletg.domain.enums.TipoProblema;
 
 @Entity
 public class Chamado implements Serializable{
@@ -25,6 +26,8 @@ public class Chamado implements Serializable{
 	private String descricao;
 	
 	private Situacao situacao;
+	
+	private TipoProblema tipoProblema;
 	
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dataAbertura;
@@ -40,13 +43,14 @@ public class Chamado implements Serializable{
 		
 	}
 
-	public Chamado(Integer id, String titulo, String descricao, Situacao situacao, LocalDate dataAbertura,
+	public Chamado(Integer id, String titulo, String descricao, Situacao situacao, TipoProblema tipoProblema, LocalDate dataAbertura,
 			LocalDate dataEncerramento, Empregado usuario, Empregado tecnico) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.situacao = situacao;
+		this.tipoProblema = tipoProblema;
 		this.dataAbertura = dataAbertura;
 		this.dataEncerramento = dataEncerramento;
 		this.usuario = usuario;
@@ -83,6 +87,14 @@ public class Chamado implements Serializable{
 
 	public void setSituacao(Situacao situacao) {
 		this.situacao = situacao;
+	}
+	
+	public TipoProblema getTipoProblema() {
+		return tipoProblema;
+	}
+
+	public void setTipoProblema(TipoProblema tipoProblema) {
+		this.tipoProblema = tipoProblema;
 	}
 
 	public LocalDate getDataAbertura() {

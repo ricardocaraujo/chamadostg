@@ -12,7 +12,7 @@ public class ChamadoService {
 	@Autowired
 	private ChamadoRespository chamadoRepository;
 	
-	public void save (Chamado chamado) {
+	public void save(Chamado chamado) {
 		chamadoRepository.save(chamado);
 	}
 	
