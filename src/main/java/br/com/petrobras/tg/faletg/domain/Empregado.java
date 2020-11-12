@@ -17,15 +17,18 @@ public class Empregado implements Serializable {
 	private String chave;
 	
 	private String nome;
+	
+	private String senha;
 
 	public Empregado() {
 	}
 	
-	public Empregado(Integer id, String chave, String nome) {
+	public Empregado(Integer id, String chave, String nome, String senha) {
 		super();
 		this.id = id;
 		this.chave = chave;
 		this.nome = nome;
+		this.senha = senha;
 	}
 
 	public Integer getId() {
@@ -50,6 +53,14 @@ public class Empregado implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	@Override

@@ -1,15 +1,29 @@
 package br.com.petrobras.tg.faletg.controllers;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.petrobras.tg.faletg.domain.Chamado;
 import br.com.petrobras.tg.faletg.domain.enums.TipoProblema;
 import br.com.petrobras.tg.faletg.service.ChamadoService;
+import br.com.petrobras.tg.faletg.service.FileUploadService;
 
 @Controller
 public class ChamadoController {
@@ -17,6 +31,13 @@ public class ChamadoController {
 	
 	@Autowired
 	private ChamadoService chamadoService;
+	
+	@Autowired
+	private FileUploadService fileUploadService;
+	
+	/*
+	 * @Autowired private SalvaAnexoService salvaAnexoService;
+	 */
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String preparaChamado(Model model) {
@@ -27,11 +48,35 @@ public class ChamadoController {
 	}
 	
 	@RequestMapping(value="registra", method=RequestMethod.POST)
-	public String registraChamado(@ModelAttribute Chamado chamado, Model model) {
+	public String registraChamado(@ModelAttribute Chamado chamado, 
+			@RequestParam("files") MultipartFile[] files, Model model) throws IOException{
+		
+		/*
+		 * List<String> anexos = Arrays.asList(files).stream(). map(file ->
+		 * fileUploadUtil.save("anexos", file.getName(),
+		 * file)).collect(Collectors.toList());
+		 */	
+		List<String> anexos = new ArrayList<>(); 
+		for(MultipartFile file:files) { 
+			anexos.add(fileUploadService.save("anexos", file));
+		}		 
+		chamado.setAnexo(anexos);
 		this.chamadoService.save(chamado);
-		return "chamado";
+		return "redirect:lista";
 	}
 	
+	@RequestMapping(value="lista", method=RequestMethod.GET)
+	public String listaChamados(Model model) {
+		List<Chamado> chamados = chamadoService.findAll();
+		model.addAttribute("chamados", chamados);
+		return "lista";
+	}
+	
+	@ResponseStatus(value=HttpStatus.INTERNAL_SERVER_ERROR, reason="Falha ao carregar arquivo")
+	@ExceptionHandler(IOException.class)
+	public void erroAnexo() {
+		
+	}
 	
 	
 }

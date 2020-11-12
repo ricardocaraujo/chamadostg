@@ -9,7 +9,7 @@
 	<main layout:fragment="conteudo">
 	
 		<div class="container">
-			<form th:action="@{/registra}" th:object=${chamado} method="POST">
+			<form th:action="@{/registra}" th:object=${chamado} enctype="multipart/form-data" method="POST">
 				<div class="form-group">
 					<label for="tipo">Problema</label>
 					<br>
@@ -25,6 +25,10 @@
 				<div class="form-group">
 					<label for="descricao">Descrição</label>
 					<textarea class="form-control" id="descricao" th:field="*{descricao}" rows="5"></textarea>
+				</div>
+				<div>
+					<label for="anexo">Anexo</label>
+					<input type="file" multiple="multiple" name="files" class="form-control" id="anexo">
 				</div>
 				<button type="submit" class="btn btn-secondary">Registrar</button>
 			</form>

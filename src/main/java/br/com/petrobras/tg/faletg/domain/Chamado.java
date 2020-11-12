@@ -2,7 +2,10 @@ package br.com.petrobras.tg.faletg.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,11 +32,14 @@ public class Chamado implements Serializable{
 	
 	private TipoProblema tipoProblema;
 	
-	@DateTimeFormat(iso = ISO.DATE)
+	@DateTimeFormat(iso = ISO.DATE) // padrão ISO = aaaa-mm-dd
 	private LocalDate dataAbertura;
 	
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dataEncerramento;
+	
+	@ElementCollection
+	private List<String> anexos;
 	
 	private Empregado usuario;
 	
@@ -51,7 +57,7 @@ public class Chamado implements Serializable{
 		this.descricao = descricao;
 		this.situacao = situacao;
 		this.tipoProblema = tipoProblema;
-		this.dataAbertura = dataAbertura;
+		this.dataAbertura = LocalDate.now();
 		this.dataEncerramento = dataEncerramento;
 		this.usuario = usuario;
 		this.tecnico = tecnico;
@@ -128,6 +134,14 @@ public class Chamado implements Serializable{
 	public void setTecnico(Empregado tecnico) {
 		this.tecnico = tecnico;
 	}
+	
+	public List<String> getAnexo() {
+		return anexos;
+	}
+
+	public void setAnexo(List<String> anexos) {
+		this.anexos = anexos;
+	}
 
 	@Override
 	public int hashCode() {
@@ -154,6 +168,18 @@ public class Chamado implements Serializable{
 		return true;
 	}
 	
-	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Título: ");
+		sb.append(this.titulo);
+		sb.append("Descrição: ");
+		sb.append(this.descricao);
+		sb.append("Empregado: ");
+		//sb.append(this.usuario.getNome() + "(" + this.usuario.getChave() + ")");
+		sb.append("Tipo problema: ");
+		sb.append(this.tipoProblema.getDescricao());
+		return sb.toString();
+	}
 
 }

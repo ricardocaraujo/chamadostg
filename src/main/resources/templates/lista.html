@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+<title>Lista</title>
+</head>
+<body>
+	<main layout:fragment="conteudo">
+		<div class="container">
+			<h3>Lista chamados</h3>
+			<table class="table">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">Registro</th>
+						<th scope="col">Título</th>
+						<th scope="col">Tipo de problema</th>
+						<th scope="col">Data de abertura</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each = "chamado : ${chamados}">
+						<th scope="row" th:text="${chamado.id}"></th>
+						<td th:text="${chamado.titulo}"></td>
+						<td th:text="${chamado.tipoProblema.descricao}"></td>
+						<td th:text="${chamado.dataAbertura}"></td>
+					</tr>
+				</tbody>
+			</table>
+			
+		</div>
+	
+	</main>
+
+</body>
+</html>
