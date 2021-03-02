@@ -43,5 +43,13 @@ public class ChamadoService {
 		Files.copy(is, filePath, StandardCopyOption.REPLACE_EXISTING);
 		return filePath.toString();
 	}
+
+	public void deleta(Integer id) {
+		chamadoRepository.deleteById(id);		
+	}
+
+	public Chamado find(Integer id) {
+		return chamadoRepository.getOne(id);
+	}
 	
 }

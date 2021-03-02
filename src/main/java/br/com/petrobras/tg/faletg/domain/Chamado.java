@@ -1,8 +1,6 @@
 package br.com.petrobras.tg.faletg.domain;
 
-import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
@@ -10,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -18,15 +17,8 @@ import br.com.petrobras.tg.faletg.domain.enums.Situacao;
 import br.com.petrobras.tg.faletg.domain.enums.TipoProblema;
 
 @Entity
-public class Chamado implements Serializable{
+public class Chamado {
 	
-	
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
@@ -48,26 +40,12 @@ public class Chamado implements Serializable{
 	@ElementCollection
 	private List<String> anexos;
 	
-	private Empregado usuario;
+	private String chaveUsuario;
 	
-	private Empregado tecnico;
+	private String chaveTecnico;
 	
 	public Chamado() {
 		
-	}
-
-	public Chamado(Integer id, String titulo, String descricao, Situacao situacao, TipoProblema tipoProblema, LocalDate dataAbertura,
-			LocalDate dataEncerramento, Empregado usuario, Empregado tecnico) {
-		super();
-		this.id = id;
-		this.titulo = titulo;
-		this.descricao = descricao;
-		this.situacao = situacao;
-		this.tipoProblema = tipoProblema;
-		this.dataAbertura = LocalDate.now();
-		this.dataEncerramento = dataEncerramento;
-		this.usuario = usuario;
-		this.tecnico = tecnico;
 	}
 
 	public Integer getId() {
@@ -125,23 +103,23 @@ public class Chamado implements Serializable{
 	public void setDataEncerramento(LocalDate dataEncerramento) {
 		this.dataEncerramento = dataEncerramento;
 	}
-
-	public Empregado getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Empregado usuario) {
-		this.usuario = usuario;
-	}
-
-	public Empregado getTecnico() {
-		return tecnico;
-	}
-
-	public void setTecnico(Empregado tecnico) {
-		this.tecnico = tecnico;
-	}
 	
+	public String getChaveUsuario() {
+		return chaveUsuario;
+	}
+
+	public void setChaveUsuario(String chaveUsuario) {
+		this.chaveUsuario = chaveUsuario;
+	}
+
+	public String getChaveTecnico() {
+		return chaveTecnico;
+	}
+
+	public void setChaveTecnico(String chaveTecnico) {
+		this.chaveTecnico = chaveTecnico;
+	}
+
 	public List<String> getAnexo() {
 		return anexos;
 	}

@@ -8,11 +8,13 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,7 +41,7 @@ public class ChamadoController {
 	 * @Autowired private SalvaAnexoService salvaAnexoService;
 	 */
 	
-	@RequestMapping(method=RequestMethod.GET)
+	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String preparaChamado(Model model) {
 		Chamado chamado = new Chamado();
 		model.addAttribute("chamado", chamado);
@@ -70,6 +72,19 @@ public class ChamadoController {
 		List<Chamado> chamados = chamadoService.findAll();
 		model.addAttribute("chamados", chamados);
 		return "lista";
+	}
+	
+	@RequestMapping(value="/deleta/{id}", method = RequestMethod.DELETE)
+	public String deletaChamado(@PathVariable(name="id") Integer id) {
+		chamadoService.deleta(id);
+		return "redirect:/lista";
+	}
+	
+	@RequestMapping(value="/atualiza/{id}", method = RequestMethod.GET)
+	public String atualizaChamado(@PathVariable(name="id") Integer id, Model model) {
+		Chamado chamado = chamadoService.find(id);
+		model.addAttribute("chamado", chamado);
+		return "chamado";
 	}
 	
 	@ResponseStatus(value=HttpStatus.INTERNAL_SERVER_ERROR, reason="Falha ao carregar arquivo")

@@ -5,19 +5,25 @@
 </head>
 <body>
 	<main layout:fragment="conteudo">
-		<div class="login">
+		<div class="login2">
 			<h2>Sistema de Chamados da TG</h2>
-			<div class="card mb-3">
-				<form th:action="@{/login}" class="card-body" method="post">
+			<div class="card mb-3">		
+				<div th:if=${param.error} class="alert alert-danger">
+					Usuário e senha erradas
+				</div>			
+				<div th:if=${param.logout} class="alert alert-success">
+					Logoff efetuado
+				</div>
+				<form th:action="@{/login}" class="card-body" method="post">				
 					<div class="form-group">
 						<label for="chave">Chave</label>
-						<input name="chave" type="text" class="form-control" id="chave">
+						<input name="username" type="text" class="form-control" id="chave">
 					</div>
 					<div class="form-group">
 						<label for="senha">Senha</label>
-						<input name="senha" type="password" class="form-control" id="senha">
+						<input name="password" type="password" class="form-control" id="senha">
 					</div>
-					<button type="submit" class="btn btn-primary">Login</button>
+					<button type="submit" class="btn btn-primary ">Login</button>
 				</form>
 			</div>
 		</div>

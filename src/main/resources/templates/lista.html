@@ -23,6 +23,11 @@
 						<td th:text="${chamado.titulo}"></td>
 						<td th:text="${chamado.tipoProblema.descricao}"></td>
 						<td th:text="${chamado.dataAbertura}"></td>
+						<td>
+							<a th:href="@{'/atualiza/' + ${chamado.id}}">Atualizar</a>
+							&nbsp
+							<a th:href="@{'/deleta/' + ${chamado.id}}" id="encerrar">Encerrar</a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

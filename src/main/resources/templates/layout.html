@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
-  	<meta http-equiv="Content-Type" content="text/html">
     <title>Chamados TG</title>
     
     <!-- Bootstrap core CSS -->
-	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
     
     <!-- Custom styles -->
-    <link href="css/estilos.css" rel="stylesheet"/>
+    <link type="text/css" href="css/estilos.css" rel="stylesheet"/>
 </head>
 <body>
 
@@ -20,7 +19,13 @@
 	
 	</header>
 
-
+	<!-- <form action="/logout" method="post" style="position: absolute; top: 80px">
+		<input type="submit" value="logout">
+	</form> -->
+	
+	
+	<a th:href="logout" style="position: absolute; top: 60px; right:20px ">Sair</a>
+	
 	<main layout:fragment="conteudo"></main>
 
 	<!-- <footer th:replace="fragments/footer :: rodape">
@@ -29,6 +34,6 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
-
+	<script type="js/js.js"></script>
 </body>
 </html>
