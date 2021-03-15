@@ -24,27 +24,28 @@ public class ChamadoService {
 	@Autowired
 	private EmailService emailService;
 	
-	public void save(Chamado chamado) {
-		this.chamadoRepository.save(chamado);
+	public Integer save(Chamado chamado) {
+		Chamado chamadoCriado = this.chamadoRepository.save(chamado);
 		emailService.sendOrderConfirmationEmail(chamado);
+		return chamadoCriado.getId();
 	}
 	
 	public List<Chamado> findAll() {
 		return this.chamadoRepository.findAll();
 	}
 	
-	public String save(String baseFolder, String fileName, MultipartFile file) throws IOException {
-		Path uploadPath = Paths.get(baseFolder); 
-		if(!Files.exists(uploadPath)) {
-			Files.createDirectories(uploadPath);
-		}
-		InputStream is = file.getInputStream();
-		Path filePath = uploadPath.resolve(fileName);
-		Files.copy(is, filePath, StandardCopyOption.REPLACE_EXISTING);
-		return filePath.toString();
-	}
+//	public String save(String baseFolder, String fileName, MultipartFile file) throws IOException {
+//		Path uploadPath = Paths.get(baseFolder); 
+//		if(!Files.exists(uploadPath)) {
+//			Files.createDirectories(uploadPath);
+//		}
+//		InputStream is = file.getInputStream();
+//		Path filePath = uploadPath.resolve(fileName);
+//		Files.copy(is, filePath, StandardCopyOption.REPLACE_EXISTING);
+//		return filePath.toString();
+//	}
 
-	public void deleta(Integer id) {
+	public void delete(Integer id) {
 		chamadoRepository.deleteById(id);		
 	}
 

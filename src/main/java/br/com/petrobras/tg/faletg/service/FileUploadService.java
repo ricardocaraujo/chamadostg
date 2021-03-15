@@ -17,9 +17,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class FileUploadService {
+	
+	private final String pasta = "anexos";
 
-	public String save(String baseFolder, MultipartFile file) throws IOException {
-		Path uploadPath = Paths.get(baseFolder + File.separator + StringUtils.cleanPath(file.getOriginalFilename())); 
+	public String save(Integer id, MultipartFile file) throws IOException {
+		Path pastaPath = Paths.get(pasta);
+		if(Files.notExists(pastaPath)) {
+			Files.createDirectory(pastaPath);
+		}		
+		Path idPath = Paths.get(pasta + File.separator + Integer.toString(id));
+		if(Files.notExists(idPath)) {
+			Files.createDirectory(idPath);
+		}		
+		Path uploadPath = Paths.get(idPath + File.separator + StringUtils.cleanPath(file.getOriginalFilename())); 
 		InputStream is = file.getInputStream();
 		Files.copy(is, uploadPath, StandardCopyOption.REPLACE_EXISTING);
 		return uploadPath.toString();

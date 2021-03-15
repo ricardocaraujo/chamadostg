@@ -27,12 +27,12 @@ public class Chamado {
 	
 	private String descricao;
 	
-	private Situacao situacao;
+	private Situacao situacao = Situacao.ABERTO;
 	
 	private TipoProblema tipoProblema;
 	
 	@DateTimeFormat(iso = ISO.DATE) // padrão ISO = aaaa-mm-dd
-	private LocalDate dataAbertura;
+	private LocalDate dataAbertura = LocalDate.now();
 	
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dataEncerramento;
@@ -156,12 +156,12 @@ public class Chamado {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
+		sb.append("Id: ");
+		sb.append(this.id);
 		sb.append("Título: ");
 		sb.append(this.titulo);
 		sb.append("Descrição: ");
 		sb.append(this.descricao);
-		sb.append("Empregado: ");
-		//sb.append(this.usuario.getNome() + "(" + this.usuario.getChave() + ")");
 		sb.append("Tipo problema: ");
 		sb.append(this.tipoProblema.getDescricao());
 		return sb.toString();

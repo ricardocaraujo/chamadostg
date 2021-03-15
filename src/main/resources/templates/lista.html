@@ -15,6 +15,8 @@
 						<th scope="col">Título</th>
 						<th scope="col">Tipo de problema</th>
 						<th scope="col">Data de abertura</th>
+						<th scope="col">Situação</th>
+						<th scope="col">Ação</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -23,15 +25,24 @@
 						<td th:text="${chamado.titulo}"></td>
 						<td th:text="${chamado.tipoProblema.descricao}"></td>
 						<td th:text="${chamado.dataAbertura}"></td>
-						<td>
-							<a th:href="@{'/atualiza/' + ${chamado.id}}">Atualizar</a>
-							&nbsp
-							<a th:href="@{'/deleta/' + ${chamado.id}}" id="encerrar">Encerrar</a>
+						<td style="padding: 2px;width: 150px">
+							<th:block th:switch="${chamado.situacao.name()}">
+								<div th:case="'ABERTO'" class="card-header alert-dark" th:text="${chamado.situacao.descricao}"></div>
+								<div th:case="'EM_EXECUÇÃO'" class="card-header alert-warning" th:text="${chamado.situacao.descricao}"></div>
+								<div th:case="'CONCLUÍDO'" class="card-header alert-success" th:text="${chamado.situacao.descricao}"></div>
+							</th:block>
+						</td>
+						<td>	
+							<a th:href="@{'/atualiza/' + ${chamado.id}}"><i class="espacamento-direita bi bi-pencil-square"></i></a>
+							<a th:href="@{'/deleta/' + ${chamado.id}}" id="encerrar"><i class="espacamento-direita bi bi-x-square"></i></a>
 						</td>
 					</tr>
 				</tbody>
 			</table>
-			
+			<form th:action="@{/}" method="GET">
+<!-- 			<button type="submit" value="Novo chamado" th:href="@{'/'}">Teste</button> -->
+				<input type="submit" class="btn btn-secondary" value="Novo chamado">
+			</form>	
 		</div>
 	
 	</main>

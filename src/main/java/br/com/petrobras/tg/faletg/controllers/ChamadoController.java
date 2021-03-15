@@ -36,11 +36,7 @@ public class ChamadoController {
 	
 	@Autowired
 	private FileUploadService fileUploadService;
-	
-	/*
-	 * @Autowired private SalvaAnexoService salvaAnexoService;
-	 */
-	
+		
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String preparaChamado(Model model) {
 		Chamado chamado = new Chamado();
@@ -57,13 +53,17 @@ public class ChamadoController {
 		 * List<String> anexos = Arrays.asList(files).stream(). map(file ->
 		 * fileUploadUtil.save("anexos", file.getName(),
 		 * file)).collect(Collectors.toList());
-		 */	
+		 */
+		System.out.println(chamado.toString());
+		Integer id = this.chamadoService.save(chamado);
+		
 		List<String> anexos = new ArrayList<>(); 
-		for(MultipartFile file:files) { 
-			anexos.add(fileUploadService.save("anexos", file));
-		}		 
-		chamado.setAnexo(anexos);
-		this.chamadoService.save(chamado);
+		for(MultipartFile file:files) {
+			if(!file.isEmpty()) {
+				anexos.add(fileUploadService.save(id, file));
+			}		
+		}
+		chamado.setAnexo(anexos);		
 		return "redirect:lista";
 	}
 	
@@ -76,7 +76,7 @@ public class ChamadoController {
 	
 	@RequestMapping(value="/deleta/{id}", method = RequestMethod.DELETE)
 	public String deletaChamado(@PathVariable(name="id") Integer id) {
-		chamadoService.deleta(id);
+		chamadoService.delete(id);
 		return "redirect:/lista";
 	}
 	
@@ -84,6 +84,7 @@ public class ChamadoController {
 	public String atualizaChamado(@PathVariable(name="id") Integer id, Model model) {
 		Chamado chamado = chamadoService.find(id);
 		model.addAttribute("chamado", chamado);
+		model.addAttribute("problemas", TipoProblema.values());
 		return "chamado";
 	}
 	

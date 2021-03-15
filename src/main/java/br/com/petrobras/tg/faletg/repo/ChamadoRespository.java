@@ -8,4 +8,6 @@ import br.com.petrobras.tg.faletg.domain.Chamado;
 @Repository
 public interface ChamadoRespository extends JpaRepository<Chamado, Integer> {
 
+	
+	
 }
