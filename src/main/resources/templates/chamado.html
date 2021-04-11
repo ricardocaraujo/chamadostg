@@ -15,12 +15,15 @@
 			</div>
 			<form th:action="@{/registra}" th:object=${chamado} enctype="multipart/form-data" method="POST">
 				<div class="form-group espaco-componentes">
-					<label for="tipo">Problema</label>
+					<label for="tipo" class="elemento">Problema</label>
 					<br>
 					<select id="tipo" class="form-group" th:field=*{tipoProblema}>
 						<option value="">Selecione</option>
 						<option th:each="problema : ${problemas}" th:value="${problema}" th:text="${problema.descricao}"></option>
 					</select>
+				</div>
+				<div class="form-group">
+					<input type="hidden" class="form-control" id="id" th:field="*{id}">
 				</div>
 				<div class="form-group">
 					<label for="titulo">Título</label>

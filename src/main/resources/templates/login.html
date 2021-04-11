@@ -6,16 +6,16 @@
 <body>
 	<main layout:fragment="conteudo">
 		<div class="login2">
-			<h2>Sistema de Chamados da TG</h2>
-			<div class="card mb-3">		
+			<h3>SISTEMA DE CHAMADOS DA TG</h3>	
+			<div class="card-light mb-3 card-login">
 				<div th:if=${param.error} class="alert alert-danger">
 					Usuário e senha erradas
 				</div>			
 				<div th:if=${param.logout} class="alert alert-success">
 					Logoff efetuado
 				</div>
-				<form th:action="@{/login}" class="card-body" method="post">				
-					<div class="form-group">
+				<form th:action="@{/login}" class="card-body espaco-login" method="post">		
+					<div class="form-group espaco-login">
 						<label for="chave">Chave</label>
 						<input name="username" type="text" class="form-control" id="chave">
 					</div>

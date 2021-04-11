@@ -37,6 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			//.antMatchers("/chamado").permitAll()
 			.antMatchers("/bootstrap/**").permitAll()
 			.antMatchers("/js/**").permitAll()
+			.antMatchers("/images/**").permitAll()
 			.antMatchers("/h2-console/**").permitAll()
 			.antMatchers("/login*").permitAll()
 			.antMatchers("/lista").hasRole("ADMIN")
